@@ -10,7 +10,28 @@ class DataLoader {
     async loadData() {
         try {
             // Try to load from external JSON file first
-            const response = await fetch('static/data/results.json');
+            // If you include the JSON data in your HTML (e.g., via a <script type="application/json"> tag),
+            // you can access it here. Example:
+            // <script id="results-json" type="application/json" src="static/data/results.json"></script>
+            // However, 'src' is not supported for <script type="application/json">, so you must inline the JSON:
+            // <script id="results-json" type="application/json">
+            //   { ... your JSON data ... }
+            // </script>
+            // Then in JS:
+            const jsonScript = document.getElementById('results-json');
+            let response = { ok: false };
+            if (jsonScript) {
+                try {
+                    this.data = JSON.parse(jsonScript.textContent);
+                    response.ok = true;
+                } catch (e) {
+                    response.ok = false;
+                }
+            }
+            // If not found, fallback to fetch:
+            if (!response.ok) {
+                response = await fetch('static/data/results.json');
+            }
             if (response.ok) {
                 this.data = await response.json();
             } else {
@@ -43,12 +64,31 @@ class DataLoader {
             // Try to load from quanti data folder
             for (const file of files) {
                 try {
-                    const response = await fetch(`/static/data/${file}`);
+
+                    // <script id="results-json" type="application/json">
+                    //   { ... your JSON data ... }
+                    // </script>
+                    // Then in JS:
+                    const jsonScript = document.getElementById('data-' + file.replace('.json', ''));
+                    let response = { ok: false };
+                    if (jsonScript) {
+                        try {
+                            quantiData[file] = JSON.parse(jsonScript.textContent);
+                            response.ok = true;
+                        } catch (e) {
+                            response.ok = false;
+                        }
+                    }
+                    // If not found, fallback to fetch:
+                if (!response.ok) {
+                    response = await fetch('static/data/' + file);
                     if (response.ok) {
                         quantiData[file] = await response.json();
                     }
+                    }       
+                
                 } catch (e) {
-                    // Fallback to mock data if files not accessible
+                    console.warn(`Failed to load ${file}, generating mock data. Error:`, e);
                     quantiData[file] = this.generateMockQuantiData(file);
                 }
             }
