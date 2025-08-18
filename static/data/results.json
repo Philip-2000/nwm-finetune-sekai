@@ -1,0 +1,93 @@
+{
+  "metrics": {
+    "lpips": [
+      { "method": "Baseline NWM", "familiar": 0.245, "half_familiar": 0.312, "unfamiliar": 0.398 },
+      { "method": "Fine-tuned NWM", "familiar": 0.189, "half_familiar": 0.267, "unfamiliar": 0.356 },
+      { "method": "Our Method", "familiar": 0.156, "half_familiar": 0.221, "unfamiliar": 0.298 }
+    ],
+    "dreamsim": [
+      { "method": "Baseline NWM", "familiar": 0.267, "half_familiar": 0.334, "unfamiliar": 0.421 },
+      { "method": "Fine-tuned NWM", "familiar": 0.198, "half_familiar": 0.289, "unfamiliar": 0.378 },
+      { "method": "Our Method", "familiar": 0.167, "half_familiar": 0.243, "unfamiliar": 0.321 }
+    ],
+    "fid": [
+      { "method": "Baseline NWM", "familiar": 45.2, "half_familiar": 67.8, "unfamiliar": 89.4 },
+      { "method": "Fine-tuned NWM", "familiar": 32.1, "half_familiar": 48.6, "unfamiliar": 72.3 },
+      { "method": "Our Method", "familiar": 24.8, "half_familiar": 36.2, "unfamiliar": 58.7 }
+    ]
+  },
+  "table_data": [
+    {
+      "method": "Baseline NWM",
+      "scene_type": "Familiar",
+      "lpips": 0.245,
+      "dreamsim": 0.267,
+      "fid": 45.2,
+      "success_rate": 76.3
+    },
+    {
+      "method": "Baseline NWM",
+      "scene_type": "Half-Familiar",
+      "lpips": 0.312,
+      "dreamsim": 0.334,
+      "fid": 67.8,
+      "success_rate": 58.7
+    },
+    {
+      "method": "Baseline NWM",
+      "scene_type": "Unfamiliar",
+      "lpips": 0.398,
+      "dreamsim": 0.421,
+      "fid": 89.4,
+      "success_rate": 41.2
+    },
+    {
+      "method": "Fine-tuned NWM",
+      "scene_type": "Familiar",
+      "lpips": 0.189,
+      "dreamsim": 0.198,
+      "fid": 32.1,
+      "success_rate": 84.7
+    },
+    {
+      "method": "Fine-tuned NWM",
+      "scene_type": "Half-Familiar",
+      "lpips": 0.267,
+      "dreamsim": 0.289,
+      "fid": 48.6,
+      "success_rate": 71.3
+    },
+    {
+      "method": "Fine-tuned NWM",
+      "scene_type": "Unfamiliar",
+      "lpips": 0.356,
+      "dreamsim": 0.378,
+      "fid": 72.3,
+      "success_rate": 52.8
+    },
+    {
+      "method": "Our Method",
+      "scene_type": "Familiar",
+      "lpips": 0.156,
+      "dreamsim": 0.167,
+      "fid": 24.8,
+      "success_rate": 91.2
+    },
+    {
+      "method": "Our Method",
+      "scene_type": "Half-Familiar",
+      "lpips": 0.221,
+      "dreamsim": 0.243,
+      "fid": 36.2,
+      "success_rate": 83.4
+    },
+    {
+      "method": "Our Method",
+      "scene_type": "Unfamiliar",
+      "lpips": 0.298,
+      "dreamsim": 0.321,
+      "fid": 58.7,
+      "success_rate": 67.9
+    }
+  ]
+}

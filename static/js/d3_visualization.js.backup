@@ -1,0 +1,315 @@
+// D3.js Interactive Visualization for NWM Fine-tuning Quantitative Results
+class QuantiV        // Update y-axis label based on metric
+        const metricLabels = {
+            'lpips': 'LPIPS (↓)',
+            'dreamsim': 'DreamSim (↓)',
+            'fid': 'FID (↓)'
+        };
+        this.yLabel.text(metricLabels[this.currentMetric] || this.currentMetric.toUpperCase());
+
+        // Update title
+        this.title.text(`${this.currentMetric.toUpperCase()} Performance Over Time`);n {
+    constructor(containerId) {
+        this.containerId = containerId;
+        this.container = d3.select(containerId);
+        
+        // Extract metric from container ID
+        if (containerId.includes('lpips')) {
+            this.currentMetric = 'lpips';
+        } else if (containerId.includes('dreamsim')) {
+            this.currentMetric = 'dreamsim';
+        } else if (containerId.includes('fid')) {
+            this.currentMetric = 'fid';
+        } else {
+            this.currentMetric = 'dreamsim'; // default
+        }
+        
+        this.data = null;
+        this.margin = { top: 40, right: 100, bottom: 80, left: 80 };
+        this.width = 700 - this.margin.left - this.margin.right; // Smaller width for three-column layout
+        this.height = 400 - this.margin.top - this.margin.bottom;
+        
+        // Line visibility states (all visible by default)
+        this.lineVisibility = {
+            'familiar': true,
+            'half-familiar': true,
+            'unfamiliar': true
+        };
+        
+        this.init();
+        this.loadAndRender();
+    }
+
+    init() {
+        // Clear container
+        this.container.selectAll("*").remove();
+        
+        // Create SVG
+        this.svg = this.container
+            .append("svg")
+            .attr("width", this.width + this.margin.left + this.margin.right)
+            .attr("height", this.height + this.margin.top + this.margin.bottom);
+
+        this.g = this.svg.append("g")
+            .attr("transform", `translate(${this.margin.left},${this.margin.top})`);
+
+        // Time points and positions (matching the Python script)
+        this.timeLabels = ['1s', '2s', '4s', '6s', '8s'];
+        this.xPositions = [0, 1, 3, 5, 7]; // Non-linear spacing as in Python script
+
+        // Create scales
+        this.xScale = d3.scaleLinear()
+            .domain([0, 7])
+            .range([0, this.width]);
+
+        this.yScale = d3.scaleLinear()
+            .range([this.height, 0]);
+
+        // Color mapping (matching Python script colors)
+        this.colorMap = {
+            same: { before: '#7ff6ec', after: '#249e97' },
+            half: { before: '#ff9a9a', after: '#b22d2d' },
+            unknown: { before: '#b3ffb3', after: '#008000' }
+        };
+
+        // Create axes
+        this.xAxis = this.g.append("g")
+            .attr("class", "x-axis")
+            .attr("transform", `translate(0,${this.height})`);
+
+        this.yAxis = this.g.append("g")
+            .attr("class", "y-axis");
+
+        // Add axis labels
+        this.g.append("text")
+            .attr("class", "x-label")
+            .attr("text-anchor", "middle")
+            .attr("x", this.width / 2)
+            .attr("y", this.height + 50)
+            .style("font-size", "14px")
+            .text("Time (seconds)");
+
+        this.yLabel = this.g.append("text")
+            .attr("class", "y-label")
+            .attr("text-anchor", "middle")
+            .attr("y", -50)
+            .attr("x", -this.height / 2)
+            .attr("transform", "rotate(-90)")
+            .style("font-size", "14px")
+            .text("DreamSim (↓)");
+
+        // Add title
+        this.title = this.g.append("text")
+            .attr("class", "chart-title")
+            .attr("text-anchor", "middle")
+            .attr("x", this.width / 2)
+            .attr("y", -15)
+            .style("font-size", "16px")
+            .style("font-weight", "bold")
+            .text("Performance Over Time by Scene Type");
+
+        // Add legend
+        this.createLegend();
+    }
+
+    createLegend() {
+        const legend = this.g.append("g")
+            .attr("class", "legend")
+            .attr("transform", `translate(${this.width - 90}, 20)`);
+
+        const legendData = [
+            { type: 'same', status: 'before', label: 'Same Before', color: this.colorMap.same.before },
+            { type: 'same', status: 'after', label: 'Same After', color: this.colorMap.same.after },
+            { type: 'half', status: 'before', label: 'Half Before', color: this.colorMap.half.before },
+            { type: 'half', status: 'after', label: 'Half After', color: this.colorMap.half.after },
+            { type: 'unknown', status: 'before', label: 'Unknown Before', color: this.colorMap.unknown.before },
+            { type: 'unknown', status: 'after', label: 'Unknown After', color: this.colorMap.unknown.after }
+        ];
+        
+        legendData.forEach((d, i) => {
+            const legendRow = legend.append("g")
+                .attr("transform", `translate(0, ${i * 18})`);
+
+            legendRow.append("line")
+                .attr("x1", 0)
+                .attr("x2", 15)
+                .attr("y1", 6)
+                .attr("y2", 6)
+                .attr("stroke", d.color)
+                .attr("stroke-width", 2);
+
+            legendRow.append("text")
+                .attr("x", 20)
+                .attr("y", 9)
+                .style("font-size", "11px")
+                .text(d.label);
+        });
+    }
+
+    updateVisualization(metric) {
+        if (!this.data) return;
+
+        this.currentMetric = metric;
+        const visualData = window.dataLoader.getQuantiVisualizationData(metric);
+        
+        if (!visualData) return;
+
+        // Update y-axis label
+        const metricLabels = {
+            'lpips': 'LPIPS (↓)',
+            'dreamsim': 'DreamSim (↓)',
+            'fid': 'FID (↓)'
+        };
+        this.yLabel.text(metricLabels[metric] || metric.toUpperCase());
+
+        // Prepare data for visualization
+        const plotData = [];
+        const sceneTypes = ['same', 'half', 'unknown'];
+        const statuses = ['before', 'after'];
+
+        sceneTypes.forEach(sceneType => {
+            statuses.forEach(status => {
+                if (this.shouldShowLine(sceneType, status)) {
+                    const values = visualData[sceneType][status];
+                    const validPoints = [];
+                    
+                    values.forEach((value, i) => {
+                        if (value !== null && value !== undefined) {
+                            validPoints.push({
+                                x: this.xPositions[i],
+                                y: value,
+                                time: this.timeLabels[i],
+                                sceneType: sceneType,
+                                status: status,
+                                color: this.colorMap[sceneType][status]
+                            });
+                        }
+                    });
+                    
+                    if (validPoints.length > 0) {
+                        plotData.push({
+                            key: `${sceneType}_${status}`,
+                            values: validPoints,
+                            sceneType: sceneType,
+                            status: status,
+                            color: this.colorMap[sceneType][status]
+                        });
+                    }
+                }
+            });
+        });
+
+        // Update scales
+        const allYValues = plotData.flatMap(d => d.values.map(v => v.y));
+        if (allYValues.length > 0) {
+            this.yScale.domain([0, d3.max(allYValues) * 1.1]);
+        }
+
+        // Update axes
+        this.xAxis.transition().duration(750)
+            .call(d3.axisBottom(this.xScale)
+                .tickValues(this.xPositions)
+                .tickFormat((d, i) => this.timeLabels[i])
+            );
+
+        this.yAxis.transition().duration(750)
+            .call(d3.axisLeft(this.yScale));
+
+        // Remove existing lines and points
+        this.g.selectAll(".line-group").remove();
+
+        // Add lines and points for each series
+        plotData.forEach(series => {
+            const lineGroup = this.g.append("g")
+                .attr("class", "line-group");
+
+            // Add line
+            const line = d3.line()
+                .x(d => this.xScale(d.x))
+                .y(d => this.yScale(d.y));
+
+            lineGroup.append("path")
+                .datum(series.values)
+                .attr("class", "line")
+                .attr("d", line)
+                .attr("stroke", series.color)
+                .attr("stroke-width", 2)
+                .attr("fill", "none")
+                .attr("opacity", series.status === 'before' ? 0.75 : 1.0);
+
+            // Add points
+            const markerShape = series.status === 'before' ? 'circle' : 'cross';
+            
+            lineGroup.selectAll(".point")
+                .data(series.values)
+                .enter().append("circle")
+                .attr("class", "point")
+                .attr("cx", d => this.xScale(d.x))
+                .attr("cy", d => this.yScale(d.y))
+                .attr("r", 4)
+                .attr("fill", series.color)
+                .attr("stroke", "#fff")
+                .attr("stroke-width", 1)
+                .on("mouseover", (event, d) => {
+                    // Add tooltip
+                    const tooltip = d3.select("body").append("div")
+                        .attr("class", "tooltip")
+                        .style("position", "absolute")
+                        .style("background", "rgba(0, 0, 0, 0.8)")
+                        .style("color", "white")
+                        .style("padding", "8px")
+                        .style("border-radius", "4px")
+                        .style("font-size", "12px")
+                        .style("pointer-events", "none")
+                        .style("opacity", 0);
+
+                    tooltip.transition().duration(200).style("opacity", 1);
+                    tooltip.html(`${d.sceneType.toUpperCase()} ${d.status.toUpperCase()}<br/>${d.time}: ${d.y.toFixed(3)}`)
+                        .style("left", (event.pageX + 10) + "px")
+                        .style("top", (event.pageY - 28) + "px");
+                })
+                .on("mouseout", () => {
+                    d3.select(".tooltip").remove();
+                });
+        });
+    }
+
+    shouldShowLine(sceneType, status) {
+        const sceneCheck = (sceneType === 'same' && this.showSame) ||
+                          (sceneType === 'half' && this.showHalf) ||
+                          (sceneType === 'unknown' && this.showUnknown);
+        const statusCheck = (status === 'before' && this.showBefore) ||
+                           (status === 'after' && this.showAfter);
+        return sceneCheck && statusCheck;
+    }
+
+    setVisibility(sceneType, status, visible) {
+        if (sceneType === 'same') this.showSame = visible;
+        else if (sceneType === 'half') this.showHalf = visible;
+        else if (sceneType === 'unknown') this.showUnknown = visible;
+        else if (sceneType === 'before') this.showBefore = visible;
+        else if (sceneType === 'after') this.showAfter = visible;
+        
+        this.updateVisualization(this.currentMetric);
+    }
+
+    setData(data) {
+        this.data = data;
+        this.updateVisualization(this.currentMetric);
+    }
+}
+
+// Initialize visualization when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+    window.quantiViz = new QuantiVisualization('quanti-visualization');
+    
+    // Listen for quanti data loaded event
+    document.addEventListener('quantiDataLoaded', function(event) {
+        window.quantiViz.setData(event.detail);
+    });
+    
+    // If data is already loaded
+    if (window.dataLoader && window.dataLoader.getQuantiData()) {
+        window.quantiViz.setData(window.dataLoader.getQuantiData());
+    }
+});
