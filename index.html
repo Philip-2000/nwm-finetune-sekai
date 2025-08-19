@@ -38,6 +38,10 @@
   <link rel="stylesheet" href="static/css/index.css">
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 
+  <!-- Preload critical images for better UX -->
+  <!-- <link rel="preload" as="image" href="static/gifs/familiar/id_164.gif" fetchpriority="high"> -->
+  <!-- <link rel="preload" as="image" href="static/gifs/half-familiar/id_154.gif" fetchpriority="high"> -->
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
@@ -422,14 +426,14 @@
       <!-- <h2 class="title is-3 has-text-centered">Teaser Demonstrations</h2> -->
       <div class="columns is-centered">
         <!-- Left Carousel: Familiar Scenes -->
-        <div class="column is-5">
+        <div class="column is-6">
           <h3 class="title is-4 has-text-centered">Familiar Scene Navigation</h3>
           <div id="familiar-carousel" class="carousel results-carousel">
             <div class="item">
               <div class="has-text-centered">
-                <h6 class="title is-6">ID 164</h6>
+                <h6 class="title is-6">ID 180</h6>
                 <div class="gif-container">
-                  <img src="static/gifs/familiar/id_164.gif" alt="Familiar Scene Demo 164" style="max-width: 100%; height: auto;">
+                  <img src="static/gifs/familiar/id_180.gif" alt="Familiar Scene Demo 180" style="max-width: 100%; height: auto;" loading="lazy" fetchpriority="low">
                   <div class="gif-labels">
                     <span class="gif-label trajectory">Trajectory</span>
                     <span class="gif-label ground-truth">Ground Truth</span>
@@ -437,14 +441,14 @@
                     <span class="gif-label before-finetune">Before Finetune</span>
                   </div>
                 </div>
-                <p class="subtitle">Navigation in familiar environment with known spatial layout</p>
+                <p class="subtitle">Walking forward, along the bridge</p>
               </div>
             </div>
             <div class="item">
               <div class="has-text-centered">
-                <h6 class="title is-6">ID 180</h6>
+                <h6 class="title is-6">ID 164</h6>
                 <div class="gif-container">
-                  <img src="static/gifs/familiar/id_180.gif" alt="Familiar Scene Demo 180" style="max-width: 100%; height: auto;">
+                  <img src="static/gifs/familiar/id_164.gif" alt="Familiar Scene Demo 164" style="max-width: 100%; height: auto;" loading="lazy" fetchpriority="low">
                   <div class="gif-labels">
                     <span class="gif-label trajectory">Trajectory</span>
                     <span class="gif-label ground-truth">Ground Truth</span>
@@ -452,14 +456,14 @@
                     <span class="gif-label before-finetune">Before Finetune</span>
                   </div>
                 </div>
-                <p class="subtitle">Confident navigation through previously seen corridors</p>
+                <p class="subtitle">Walking straight forward, in a park</p>
               </div>
             </div>
             <div class="item">
               <div class="has-text-centered">
                 <h6 class="title is-6">ID 291</h6>
                 <div class="gif-container">
-                  <img src="static/gifs/familiar/id_291.gif" alt="Familiar Scene Demo 291" style="max-width: 100%; height: auto;">
+                  <img src="static/gifs/familiar/id_291.gif" alt="Familiar Scene Demo 291" style="max-width: 100%; height: auto;" loading="lazy" fetchpriority="low">
                   <div class="gif-labels">
                     <span class="gif-label trajectory">Trajectory</span>
                     <span class="gif-label ground-truth">Ground Truth</span>
@@ -467,14 +471,14 @@
                     <span class="gif-label before-finetune">Before Finetune</span>
                   </div>
                 </div>
-                <p class="subtitle">Effective path planning in known environments</p>
+                <p class="subtitle">Passing by wind-break walls (one more piece of wall)</p>
               </div>
             </div>
             <div class="item">
               <div class="has-text-centered">
                 <h6 class="title is-6">ID 292</h6>
                 <div class="gif-container">
-                  <img src="static/gifs/familiar/id_292.gif" alt="Familiar Scene Demo 292" style="max-width: 100%; height: auto;">
+                  <img src="static/gifs/familiar/id_292.gif" alt="Familiar Scene Demo 292" style="max-width: 100%; height: auto;" loading="lazy" fetchpriority="low">
                   <div class="gif-labels">
                     <span class="gif-label trajectory">Trajectory</span>
                     <span class="gif-label ground-truth">Ground Truth</span>
@@ -482,14 +486,14 @@
                     <span class="gif-label before-finetune">Before Finetune</span>
                   </div>
                 </div>
-                <p class="subtitle">Smooth navigation in familiar spaces</p>
+                <p class="subtitle">Walking toward the buildings from playground</p>
               </div>
             </div>
             <div class="item">
               <div class="has-text-centered">
                 <h6 class="title is-6">ID 307</h6>
                 <div class="gif-container">
-                  <img src="static/gifs/familiar/id_307.gif" alt="Familiar Scene Demo 307" style="max-width: 100%; height: auto;">
+                  <img src="static/gifs/familiar/id_307.gif" alt="Familiar Scene Demo 307" style="max-width: 100%; height: auto;" loading="lazy" fetchpriority="low">
                   <div class="gif-labels">
                     <span class="gif-label trajectory">Trajectory</span>
                     <span class="gif-label ground-truth">Ground Truth</span>
@@ -497,14 +501,14 @@
                     <span class="gif-label before-finetune">Before Finetune</span>
                   </div>
                 </div>
-                <p class="subtitle">Optimized movement in well-known areas</p>
+                <p class="subtitle">Walking in the alley, people passing by</p>
               </div>
             </div>
             <div class="item">
               <div class="has-text-centered">
                 <h6 class="title is-6">ID 318</h6>
                 <div class="gif-container">
-                  <img src="static/gifs/familiar/id_318.gif" alt="Familiar Scene Demo 318" style="max-width: 100%; height: auto;">
+                  <img src="static/gifs/familiar/id_318.gif" alt="Familiar Scene Demo 318" style="max-width: 100%; height: auto;" loading="lazy" fetchpriority="low">
                   <div class="gif-labels">
                     <span class="gif-label trajectory">Trajectory</span>
                     <span class="gif-label ground-truth">Ground Truth</span>
@@ -512,21 +516,21 @@
                     <span class="gif-label before-finetune">Before Finetune</span>
                   </div>
                 </div>
-                <p class="subtitle">Reliable navigation in trained environments</p>
+                <p class="subtitle">Turning view from building to lane</p>
               </div>
             </div>
           </div>
         </div>
         
         <!-- Right Carousel: Half-Familiar Scenes -->
-        <div class="column is-5">
+        <div class="column is-6">
           <h3 class="title is-4 has-text-centered">Half-Familiar Scene Navigation</h3>
           <div id="half-familiar-carousel" class="carousel results-carousel">
             <div class="item">
               <div class="has-text-centered">
                 <h6 class="title is-6">ID 154</h6>
                 <div class="gif-container">
-                  <img src="static/gifs/half-familiar/id_154.gif" alt="Half-Familiar Scene Demo 154" style="max-width: 100%; height: auto;">
+                  <img src="static/gifs/half-familiar/id_154.gif" alt="Half-Familiar Scene Demo 154" style="max-width: 100%; height: auto;" loading="lazy" fetchpriority="low">
                   <div class="gif-labels">
                     <span class="gif-label trajectory">Trajectory</span>
                     <span class="gif-label ground-truth">Ground Truth</span>
@@ -534,14 +538,14 @@
                     <span class="gif-label before-finetune">Before Finetune</span>
                   </div>
                 </div>
-                <p class="subtitle">Navigation in partially known environment with novel elements</p>
+                <p class="subtitle">Stepping up the stairs</p>
               </div>
             </div>
             <div class="item">
               <div class="has-text-centered">
                 <h6 class="title is-6">ID 164</h6>
                 <div class="gif-container">
-                  <img src="static/gifs/half-familiar/id_164.gif" alt="Half-Familiar Scene Demo 164" style="max-width: 100%; height: auto;">
+                  <img src="static/gifs/half-familiar/id_164.gif" alt="Half-Familiar Scene Demo 164" style="max-width: 100%; height: auto;" loading="lazy" fetchpriority="low">
                   <div class="gif-labels">
                     <span class="gif-label trajectory">Trajectory</span>
                     <span class="gif-label ground-truth">Ground Truth</span>
@@ -549,14 +553,14 @@
                     <span class="gif-label before-finetune">Before Finetune</span>
                   </div>
                 </div>
-                <p class="subtitle">Adaptive behavior in modified familiar environments</p>
+                <p class="subtitle">Walking in the shopping mall, environment quickly change</p>
               </div>
             </div>
             <div class="item">
               <div class="has-text-centered">
                 <h6 class="title is-6">ID 19</h6>
                 <div class="gif-container">
-                  <img src="static/gifs/half-familiar/id_19.gif" alt="Half-Familiar Scene Demo 19" style="max-width: 100%; height: auto;">
+                  <img src="static/gifs/half-familiar/id_19.gif" alt="Half-Familiar Scene Demo 19" style="max-width: 100%; height: auto;" loading="lazy" fetchpriority="low">
                   <div class="gif-labels">
                     <span class="gif-label trajectory">Trajectory</span>
                     <span class="gif-label ground-truth">Ground Truth</span>
@@ -564,14 +568,14 @@
                     <span class="gif-label before-finetune">Before Finetune</span>
                   </div>
                 </div>
-                <p class="subtitle">Learning to handle novel objects in known layouts</p>
+                <p class="subtitle">Walking in the alley, didn't see the motorbike</p>
               </div>
             </div>
             <div class="item">
               <div class="has-text-centered">
                 <h6 class="title is-6">ID 37</h6>
                 <div class="gif-container">
-                  <img src="static/gifs/half-familiar/id_37.gif" alt="Half-Familiar Scene Demo 37" style="max-width: 100%; height: auto;">
+                  <img src="static/gifs/half-familiar/id_37.gif" alt="Half-Familiar Scene Demo 37" style="max-width: 100%; height: auto;" loading="lazy" fetchpriority="low">
                   <div class="gif-labels">
                     <span class="gif-label trajectory">Trajectory</span>
                     <span class="gif-label ground-truth">Ground Truth</span>
@@ -579,14 +583,14 @@
                     <span class="gif-label before-finetune">Before Finetune</span>
                   </div>
                 </div>
-                <p class="subtitle">Adaptation to changed familiar environments</p>
+                <p class="subtitle">Walking in the alley, with shops and signs on its left</p>
               </div>
             </div>
             <div class="item">
               <div class="has-text-centered">
                 <h6 class="title is-6">ID 698</h6>
                 <div class="gif-container">
-                  <img src="static/gifs/half-familiar/id_698.gif" alt="Half-Familiar Scene Demo 698" style="max-width: 100%; height: auto;">
+                  <img src="static/gifs/half-familiar/id_698.gif" alt="Half-Familiar Scene Demo 698" style="max-width: 100%; height: auto;" loading="lazy" fetchpriority="low">
                   <div class="gif-labels">
                     <span class="gif-label trajectory">Trajectory</span>
                     <span class="gif-label ground-truth">Ground Truth</span>
@@ -594,14 +598,14 @@
                     <span class="gif-label before-finetune">Before Finetune</span>
                   </div>
                 </div>
-                <p class="subtitle">Generalizing to partially modified spaces</p>
+                <p class="subtitle">Passing by cars</p>
               </div>
             </div>
             <div class="item">
               <div class="has-text-centered">
                 <h6 class="title is-6">ID 92</h6>
                 <div class="gif-container">
-                  <img src="static/gifs/half-familiar/id_92.gif" alt="Half-Familiar Scene Demo 92" style="max-width: 100%; height: auto;">
+                  <img src="static/gifs/half-familiar/id_92.gif" alt="Half-Familiar Scene Demo 92" style="max-width: 100%; height: auto;" loading="lazy" fetchpriority="low">
                   <div class="gif-labels">
                     <span class="gif-label trajectory">Trajectory</span>
                     <span class="gif-label ground-truth">Ground Truth</span>
@@ -609,7 +613,7 @@
                     <span class="gif-label before-finetune">Before Finetune</span>
                   </div>
                 </div>
-                <p class="subtitle">Handling texture and lighting changes</p>
+                <p class="subtitle">Walking forward, don't know the man's heading</p>
               </div>
             </div>
           </div>
@@ -648,7 +652,7 @@
       <div class="content">
         <h3 class="title is-4">Navigation World Model (NWM) Setup</h3>
         <div class="has-text-centered">
-          <img src="static/gifs/nwm_setup.png" alt="NWM Setup Animation" style="max-width: 80%; height: auto;">
+          <img src="static/gifs/nwm_setup.png" alt="NWM Setup Animation" style="max-width: 80%; height: auto;" loading="lazy" fetchpriority="high">
         </div>
         <p class="has-text-centered">
           The Navigation World Model processes visual inputs and trajectory data to learn spatial representations for navigation tasks.
@@ -662,7 +666,7 @@
           <div class="column is-one-third">
             <h4 class="title is-5 has-text-centered">Familiar Scenes</h4>
             <div class="has-text-centered">
-              <img src="static/gifs/familiar_scenes_setup.png" alt="Familiar Scenes Setup" style="max-width: 100%; height: auto;">
+              <img src="static/gifs/familiar_scenes_setup.png" alt="Familiar Scenes Setup" style="max-width: 100%; height: auto;" loading="lazy" fetchpriority="high">
             </div>
             <p class="has-text-centered">Training on environments the model has previously encountered to reinforce spatial understanding.</p>
           </div>
@@ -670,7 +674,7 @@
           <div class="column is-one-third">
             <h4 class="title is-5 has-text-centered">Half-Familiar Scenes</h4>
             <div class="has-text-centered">
-              <img src="static/gifs/half_familiar_scenes_setup.png" alt="Half-Familiar Scenes Setup" style="max-width: 100%; height: auto;">
+              <img src="static/gifs/half_familiar_scenes_setup.png" alt="Half-Familiar Scenes Setup" style="max-width: 100%; height: auto;" loading="lazy" fetchpriority="high">
             </div>
             <p class="has-text-centered">Combining known spatial layouts with novel visual elements to improve generalization.</p>
           </div>
@@ -678,7 +682,7 @@
           <div class="column is-one-third">
             <h4 class="title is-5 has-text-centered">Unfamiliar Scenes</h4>
             <div class="has-text-centered">
-              <img src="static/gifs/unfamiliar_scenes_setup.png" alt="Unfamiliar Scenes Setup" style="max-width: 100%; height: auto;">
+              <img src="static/gifs/unfamiliar_scenes_setup.png" alt="Unfamiliar Scenes Setup" style="max-width: 100%; height: auto;" loading="lazy" fetchpriority="high">
             </div>
             <p class="has-text-centered">Testing on completely novel environments to evaluate transfer learning capabilities.</p>
           </div>
@@ -805,7 +809,7 @@
         <div class="columns is-multiline">
           <div class="column is-half">
             <div class="gif-container">
-              <img src="static/gifs/familiar/id_164.gif" alt="Familiar Demo ID 164" style="width: 100%; height: auto;">
+              <img src="static/gifs/familiar/id_164.gif" alt="Familiar Demo ID 164" style="width: 100%; height: auto;" loading="lazy" fetchpriority="low">
               <div class="gif-labels">
                 <span class="gif-label trajectory">Trajectory</span>
                 <span class="gif-label ground-truth">Ground Truth</span>
@@ -817,7 +821,7 @@
           </div>
           <div class="column is-half">
             <div class="gif-container">
-              <img src="static/gifs/familiar/id_180.gif" alt="Familiar Demo ID 180" style="width: 100%; height: auto;">
+              <img src="static/gifs/familiar/id_180.gif" alt="Familiar Demo ID 180" style="width: 100%; height: auto;" loading="lazy" fetchpriority="low">
               <div class="gif-labels">
                 <span class="gif-label trajectory">Trajectory</span>
                 <span class="gif-label ground-truth">Ground Truth</span>
@@ -829,7 +833,7 @@
           </div>
           <div class="column is-half">
             <div class="gif-container">
-              <img src="static/gifs/familiar/id_291.gif" alt="Familiar Demo ID 291" style="width: 100%; height: auto;">
+              <img src="static/gifs/familiar/id_291.gif" alt="Familiar Demo ID 291" style="width: 100%; height: auto;" loading="lazy" fetchpriority="low">
               <div class="gif-labels">
                 <span class="gif-label trajectory">Trajectory</span>
                 <span class="gif-label ground-truth">Ground Truth</span>
@@ -841,7 +845,7 @@
           </div>
           <div class="column is-half">
             <div class="gif-container">
-              <img src="static/gifs/familiar/id_292.gif" alt="Familiar Demo ID 292" style="width: 100%; height: auto;">
+              <img src="static/gifs/familiar/id_292.gif" alt="Familiar Demo ID 292" style="width: 100%; height: auto;" loading="lazy" fetchpriority="low">
               <div class="gif-labels">
                 <span class="gif-label trajectory">Trajectory</span>
                 <span class="gif-label ground-truth">Ground Truth</span>
@@ -853,7 +857,7 @@
           </div>
           <div class="column is-half">
             <div class="gif-container">
-              <img src="static/gifs/familiar/id_307.gif" alt="Familiar Demo ID 307" style="width: 100%; height: auto;">
+              <img src="static/gifs/familiar/id_307.gif" alt="Familiar Demo ID 307" style="width: 100%; height: auto;" loading="lazy" fetchpriority="low">
               <div class="gif-labels">
                 <span class="gif-label trajectory">Trajectory</span>
                 <span class="gif-label ground-truth">Ground Truth</span>
@@ -865,7 +869,7 @@
           </div>
           <div class="column is-half">
             <div class="gif-container">
-              <img src="static/gifs/familiar/id_318.gif" alt="Familiar Demo ID 318" style="width: 100%; height: auto;">
+              <img src="static/gifs/familiar/id_318.gif" alt="Familiar Demo ID 318" style="width: 100%; height: auto;" loading="lazy" fetchpriority="low">
               <div class="gif-labels">
                 <span class="gif-label trajectory">Trajectory</span>
                 <span class="gif-label ground-truth">Ground Truth</span>
@@ -884,7 +888,7 @@
         <div class="columns is-multiline">
           <div class="column is-half">
             <div class="gif-container">
-              <img src="static/gifs/half-familiar/id_154.gif" alt="Half-Familiar Demo ID 154" style="width: 100%; height: auto;">
+              <img src="static/gifs/half-familiar/id_154.gif" alt="Half-Familiar Demo ID 154" style="width: 100%; height: auto;" loading="lazy" fetchpriority="low">
               <div class="gif-labels">
                 <span class="gif-label trajectory">Trajectory</span>
                 <span class="gif-label ground-truth">Ground Truth</span>
@@ -896,7 +900,7 @@
           </div>
           <div class="column is-half">
             <div class="gif-container">
-              <img src="static/gifs/half-familiar/id_164.gif" alt="Half-Familiar Demo ID 164" style="width: 100%; height: auto;">
+              <img src="static/gifs/half-familiar/id_164.gif" alt="Half-Familiar Demo ID 164" style="width: 100%; height: auto;" loading="lazy" fetchpriority="low">
               <div class="gif-labels">
                 <span class="gif-label trajectory">Trajectory</span>
                 <span class="gif-label ground-truth">Ground Truth</span>
@@ -908,7 +912,7 @@
           </div>
           <div class="column is-half">
             <div class="gif-container">
-              <img src="static/gifs/half-familiar/id_19.gif" alt="Half-Familiar Demo ID 19" style="width: 100%; height: auto;">
+              <img src="static/gifs/half-familiar/id_19.gif" alt="Half-Familiar Demo ID 19" style="width: 100%; height: auto;" loading="lazy" fetchpriority="low">
               <div class="gif-labels">
                 <span class="gif-label trajectory">Trajectory</span>
                 <span class="gif-label ground-truth">Ground Truth</span>
@@ -920,7 +924,7 @@
           </div>
           <div class="column is-half">
             <div class="gif-container">
-              <img src="static/gifs/half-familiar/id_37.gif" alt="Half-Familiar Demo ID 37" style="width: 100%; height: auto;">
+              <img src="static/gifs/half-familiar/id_37.gif" alt="Half-Familiar Demo ID 37" style="width: 100%; height: auto;" loading="lazy" fetchpriority="low">
               <div class="gif-labels">
                 <span class="gif-label trajectory">Trajectory</span>
                 <span class="gif-label ground-truth">Ground Truth</span>
@@ -932,7 +936,7 @@
           </div>
           <div class="column is-half">
             <div class="gif-container">
-              <img src="static/gifs/half-familiar/id_698.gif" alt="Half-Familiar Demo ID 698" style="width: 100%; height: auto;">
+              <img src="static/gifs/half-familiar/id_698.gif" alt="Half-Familiar Demo ID 698" style="width: 100%; height: auto;" loading="lazy" fetchpriority="low">
               <div class="gif-labels">
                 <span class="gif-label trajectory">Trajectory</span>
                 <span class="gif-label ground-truth">Ground Truth</span>
@@ -944,7 +948,7 @@
           </div>
           <div class="column is-half">
             <div class="gif-container">
-              <img src="static/gifs/half-familiar/id_92.gif" alt="Half-Familiar Demo ID 92" style="width: 100%; height: auto;">
+              <img src="static/gifs/half-familiar/id_92.gif" alt="Half-Familiar Demo ID 92" style="width: 100%; height: auto;" loading="lazy" fetchpriority="low">
               <div class="gif-labels">
                 <span class="gif-label trajectory">Trajectory</span>
                 <span class="gif-label ground-truth">Ground Truth</span>
@@ -963,7 +967,7 @@
         <div class="columns is-multiline">
           <div class="column is-half">
             <div class="gif-container">
-              <img src="static/gifs/unfamiliar/id_11.gif" alt="Unfamiliar Demo ID 11" style="width: 100%; height: auto;">
+              <img src="static/gifs/unfamiliar/id_11.gif" alt="Unfamiliar Demo ID 11" style="width: 100%; height: auto;" loading="lazy" fetchpriority="low">
               <div class="gif-labels">
                 <span class="gif-label trajectory">Trajectory</span>
                 <span class="gif-label ground-truth">Ground Truth</span>
@@ -975,7 +979,7 @@
           </div>
           <div class="column is-half">
             <div class="gif-container">
-              <img src="static/gifs/unfamiliar/id_116.gif" alt="Unfamiliar Demo ID 116" style="width: 100%; height: auto;">
+              <img src="static/gifs/unfamiliar/id_116.gif" alt="Unfamiliar Demo ID 116" style="width: 100%; height: auto;" loading="lazy" fetchpriority="low">
               <div class="gif-labels">
                 <span class="gif-label trajectory">Trajectory</span>
                 <span class="gif-label ground-truth">Ground Truth</span>
@@ -987,7 +991,7 @@
           </div>
           <div class="column is-half">
             <div class="gif-container">
-              <img src="static/gifs/unfamiliar/id_27.gif" alt="Unfamiliar Demo ID 27" style="width: 100%; height: auto;">
+              <img src="static/gifs/unfamiliar/id_27.gif" alt="Unfamiliar Demo ID 27" style="width: 100%; height: auto;" loading="lazy" fetchpriority="low">
               <div class="gif-labels">
                 <span class="gif-label trajectory">Trajectory</span>
                 <span class="gif-label ground-truth">Ground Truth</span>
@@ -999,7 +1003,7 @@
           </div>
           <div class="column is-half">
             <div class="gif-container">
-              <img src="static/gifs/unfamiliar/id_356.gif" alt="Unfamiliar Demo ID 356" style="width: 100%; height: auto;">
+              <img src="static/gifs/unfamiliar/id_356.gif" alt="Unfamiliar Demo ID 356" style="width: 100%; height: auto;" loading="lazy" fetchpriority="low">
               <div class="gif-labels">
                 <span class="gif-label trajectory">Trajectory</span>
                 <span class="gif-label ground-truth">Ground Truth</span>
@@ -1034,7 +1038,7 @@
           <div class="column is-one-third">
             <div class="has-text-centered">
               <div class="gif-container">
-                <img src="static/gifs/familiar/fd_107.gif" alt="Familiar Failure FD 107" style="width: 100%; height: auto;">
+                <img src="static/gifs/familiar/fd_107.gif" alt="Familiar Failure FD 107" style="width: 100%; height: auto;" loading="lazy" fetchpriority="low">
                 <div class="gif-labels">
                   <span class="gif-label trajectory">Trajectory</span>
                   <span class="gif-label ground-truth">Ground Truth</span>
@@ -1042,14 +1046,14 @@
                   <span class="gif-label before-finetune" style="font-size: 7px;left: 88%;padding: 3px;">Before Finetune</span>
                 </div>
               </div>
-              <span class="subtitle is-6">Navigation failure in familiar corridor</span><br>
+              <span class="subtitle is-6">Too many dynamic issue in scene</span><br>
               <h6 class="subtitle is-6">ID 107</h6>
             </div>
           </div>
           <div class="column is-one-third">
             <div class="has-text-centered">
               <div class="gif-container">
-                <img src="static/gifs/familiar/fd_287.gif" alt="Familiar Failure FD 287" style="width: 100%; height: auto;">
+                <img src="static/gifs/familiar/fd_287.gif" alt="Familiar Failure FD 287" style="width: 100%; height: auto;" loading="lazy" fetchpriority="low">
                 <div class="gif-labels">
                   <span class="gif-label trajectory">Trajectory</span>
                   <span class="gif-label ground-truth">Ground Truth</span>
@@ -1057,14 +1061,14 @@
                   <span class="gif-label before-finetune" style="font-size: 7px;left: 88%;padding: 3px;">Before Finetune</span>
                 </div>
               </div>
-              <span class="subtitle is-6">Spatial understanding error</span><br>
+              <span class="subtitle is-6">People passing by and cover the perspective</span><br>
               <h6 class="subtitle is-6">ID 287</h6>
             </div>
           </div>
           <div class="column is-one-third">
             <div class="has-text-centered">
               <div class="gif-container">
-                <img src="static/gifs/familiar/fd_406.gif" alt="Familiar Failure FD 406" style="width: 100%; height: auto;">
+                <img src="static/gifs/familiar/fd_406.gif" alt="Familiar Failure FD 406" style="width: 100%; height: auto;" loading="lazy" fetchpriority="low">
                 <div class="gif-labels">
                   <span class="gif-label trajectory">Trajectory</span>
                   <span class="gif-label ground-truth">Ground Truth</span>
@@ -1072,7 +1076,7 @@
                   <span class="gif-label before-finetune" style="font-size: 7px;left: 88%;padding: 3px;">Before Finetune</span>
                 </div>
               </div>
-              <span class="subtitle is-6">Unexpected obstacle handling failure</span><br>
+              <span class="subtitle is-6">Length unit is hard to calibrate</span><br>
               <h6 class="subtitle is-6">ID 406</h6>
             </div>
           </div>
@@ -1086,7 +1090,7 @@
           <div class="column is-one-third">
             <div class="has-text-centered">
               <div class="gif-container">
-                <img src="static/gifs/half-familiar/fd_108.gif" alt="Half-Familiar Failure FD 108" style="width: 100%; height: auto;">
+                <img src="static/gifs/half-familiar/fd_108.gif" alt="Half-Familiar Failure FD 108" style="width: 100%; height: auto;" loading="lazy" fetchpriority="low">
                 <div class="gif-labels">
                   <span class="gif-label trajectory">Trajectory</span>
                   <span class="gif-label ground-truth">Ground Truth</span>
@@ -1094,14 +1098,14 @@
                   <span class="gif-label before-finetune" style="font-size: 7px;left: 88%;padding: 3px;">Before Finetune</span>
                 </div>
               </div>
-              <span class="subtitle is-6">Novel object interference in known layout</span><br>
+              <span class="subtitle is-6">Large item appears in view<br>some element inconsistent (sea -> road)</span><br>
               <h6 class="subtitle is-6">ID 108</h6>
             </div>
           </div>
           <div class="column is-one-third">
             <div class="has-text-centered">
               <div class="gif-container">
-                <img src="static/gifs/half-familiar/fd_115.gif" alt="Half-Familiar Failure FD 115" style="width: 100%; height: auto;">
+                <img src="static/gifs/half-familiar/fd_115.gif" alt="Half-Familiar Failure FD 115" style="width: 100%; height: auto;" loading="lazy" fetchpriority="low">
                 <div class="gif-labels">
                   <span class="gif-label trajectory">Trajectory</span>
                   <span class="gif-label ground-truth">Ground Truth</span>
@@ -1109,14 +1113,14 @@
                   <span class="gif-label before-finetune" style="font-size: 7px;left: 88%;padding: 3px;">Before Finetune</span>
                 </div>
               </div>
-              <span class="subtitle is-6">Adaptation failure in modified environment</span><br>
+              <span class="subtitle is-6">New environment explored<br>after large-scale view rotation</span><br>
               <h6 class="subtitle is-6">ID 115</h6>
             </div>
           </div>
           <div class="column is-one-third">
             <div class="has-text-centered">
               <div class="gif-container">
-                <img src="static/gifs/half-familiar/fd_89.gif" alt="Half-Familiar Failure FD 89" style="width: 100%; height: auto;">
+                <img src="static/gifs/half-familiar/fd_89.gif" alt="Half-Familiar Failure FD 89" style="width: 100%; height: auto;" loading="lazy" fetchpriority="low">
                 <div class="gif-labels">
                   <span class="gif-label trajectory">Trajectory</span>
                   <span class="gif-label ground-truth">Ground Truth</span>
@@ -1124,7 +1128,7 @@
                   <span class="gif-label before-finetune" style="font-size: 7px;left: 88%;padding: 3px;">Before Finetune</span>
                 </div>
               </div>
-              <span class="subtitle is-6">Confusion in partially known space</span><br>
+              <span class="subtitle is-6">Text generation is tough<br>though original text are preserved</span><br>
               <h6 class="subtitle is-6">ID 89</h6>
             </div>
           </div>

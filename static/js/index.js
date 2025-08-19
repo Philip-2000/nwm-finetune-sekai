@@ -6,12 +6,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize three separate quantitative visualizations
     initializeQuantitativeComparison();
     
-    // Initialize original carousel and slider functionality
-    initializeCarouselAndSlider();
-    
-    // Initialize results table
-    initializeQuantiResultsTable();
-    
     // Listen for quanti data loaded event
     document.addEventListener('quantiDataLoaded', function(event) {
         populateQuantiResultsTable(event.detail);
@@ -20,7 +14,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // If quanti data is already loaded
     if (window.dataLoader && window.dataLoader.getQuantiData()) {
         populateQuantiResultsTable(window.dataLoader.getQuantiData());
-    }
+    }    
+    // Initialize original carousel and slider functionality
+    initializeCarouselAndSlider();
+    
+    // Initialize results table
+    initializeQuantiResultsTable();
     
     // Add GIF loading effects
     addGifLoadingEffects();
@@ -34,7 +33,7 @@ function initializeCarouselAndSlider() {
         loop: true,
         infinite: true,
         autoplay: true,
-        autoplaySpeed: 10000, // 10 seconds as requested
+        autoplaySpeed: 6000, // 6 seconds as requested
     }
 
     // Half-familiar carousel starts with 5-second delay
@@ -43,8 +42,8 @@ function initializeCarouselAndSlider() {
         slidesToShow: 1,
         loop: true,
         infinite: true,
-        autoplay: false, // Will be started manually with delay
-        autoplaySpeed: 10000, // 10 seconds as requested
+        autoplay: true,
+        autoplaySpeed: 7000, // 7 seconds as requested
     }
 
     // Initialize carousels
