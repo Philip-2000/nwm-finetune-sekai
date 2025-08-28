@@ -1,8 +1,9 @@
 // D3.js Interactive Visualization for NWM Fine-tuning Quantitative Results
 class QuantiVisualization {
-    constructor(containerId) {
+    constructor(containerId, category = 'time') {
         this.containerId = containerId;
         this.container = d3.select(containerId);
+        this.category = category;
         
         // Extract metric from container ID
         if (containerId.includes('lpips')) {
@@ -154,23 +155,30 @@ class QuantiVisualization {
 
     loadAndRender() {
         // Wait for data to be loaded
-        if (window.dataLoader && window.dataLoader.getQuantiData()) {
-            this.renderVisualization();
-        } else {
-            // Listen for data loaded event
-            document.addEventListener('quantiDataLoaded', () => {
-                this.renderVisualization();
-            });
+        while(!(window.dataLoader && window.dataLoader.getQuantiData())) {
+            // Wait until dataLoader is available
         }
+        this.renderVisualization();
+        // if (window.dataLoader && window.dataLoader.getQuantiData()) {
+        //     this.renderVisualization();
+        // } else {
+        //     // Listen for data loaded event
+        //     document.addEventListener('quantiDataLoaded', () => {
+        //         this.renderVisualization();
+        //     });
+        // }
     }
 
     renderVisualization() {
-        const quantiData = window.dataLoader.getQuantiData();
+        const quantiData = window.dataLoader.getQuantiData();//[this.category];
+        //console.log(quantiData);
+        //console.log(this.category);
         if (!quantiData) return;
 
-        const visualData = window.dataLoader.getQuantiVisualizationData(this.currentMetric);
+        const visualData = window.dataLoader.getQuantiVisualizationData(this.currentMetric)[this.category];
+        //console.log(visualData);
         if (!visualData) return;
-        console.log('Rendering visualization for metric:', this.currentMetric);
+        console.log('Rendering visualization for metric:', this.currentMetric, 'category:', this.category, 'containerId', this.containerId);
         console.log('Visual data structure:', visualData);
 
         // Prepare data for visualization

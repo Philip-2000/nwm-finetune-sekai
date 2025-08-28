@@ -7,19 +7,26 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeQuantitativeComparison();
     
     // Listen for quanti data loaded event
-    document.addEventListener('quantiDataLoaded', function(event) {
-        populateQuantiResultsTable(event.detail);
-    });
+    // document.addEventListener('quantiDataLoaded', function(event) {
+    //     populateQuantiResultsTable(event.detail);
+    // });
     
     // If quanti data is already loaded
-    if (window.dataLoader && window.dataLoader.getQuantiData()) {
-        populateQuantiResultsTable(window.dataLoader.getQuantiData());
-    }    
+    while(!(window.dataLoader && window.dataLoader.getQuantiData())) {
+        // Wait until dataLoader is available
+    }
+    // Initialize results table
+    initializeQuantiResultsTable();
+    
+    const D = window.dataLoader.getQuantiData();
+    populateQuantiResultsTable(D, "time");
+    populateQuantiResultsTable(D, "rollout_1fps");
+    populateQuantiResultsTable(D, "rollout_4fps");
+    
+
     // Initialize original carousel and slider functionality
     initializeCarouselAndSlider();
     
-    // Initialize results table
-    initializeQuantiResultsTable();
     
     // Add GIF loading effects
     addGifLoadingEffects();
@@ -68,43 +75,105 @@ function initializeCarouselAndSlider() {
 }
 
 function initializeQuantitativeComparison() {
-    // Create three separate visualization instances
-    var lpipsViz = new QuantiVisualization('#lpips-visualization');
-    var dreamsimViz = new QuantiVisualization('#dreamsim-visualization');
-    var fidViz = new QuantiVisualization('#fid-visualization');
+    // Create visualization instances for different categories
+    
+    // Time-based visualizations
+    var lpipsTimeViz = new QuantiVisualization('#lpips-time-visualization', 'time');
+    var dreamsimTimeViz = new QuantiVisualization('#dreamsim-time-visualization', 'time');
+    var fidTimeViz = new QuantiVisualization('#fid-time-visualization', 'time');
+    
+    // 1FPS rollout visualizations
+    var lpips1fpsViz = new QuantiVisualization('#lpips-rollout-1fps-visualization', 'rollout_1fps');
+    var dreamsim1fpsViz = new QuantiVisualization('#dreamsim-rollout-1fps-visualization', 'rollout_1fps');
+    var fid1fpsViz = new QuantiVisualization('#fid-rollout-1fps-visualization', 'rollout_1fps');
+    
+    // 4FPS rollout visualizations
+    var lpips4fpsViz = new QuantiVisualization('#lpips-rollout-4fps-visualization', 'rollout_4fps');
+    var dreamsim4fpsViz = new QuantiVisualization('#dreamsim-rollout-4fps-visualization', 'rollout_4fps');
+    var fid4fpsViz = new QuantiVisualization('#fid-rollout-4fps-visualization', 'rollout_4fps');
+    
+    // Store all visualizations globally
+    window.visualizations = {
+        time: { lpipsViz: lpipsTimeViz, dreamsimViz: dreamsimTimeViz, fidViz: fidTimeViz },
+        rollout_1fps: { lpipsViz: lpips1fpsViz, dreamsimViz: dreamsim1fpsViz, fidViz: fid1fpsViz },
+        rollout_4fps: { lpipsViz: lpips4fpsViz, dreamsimViz: dreamsim4fpsViz, fidViz: fid4fpsViz }
+    };
     
     // Attach button event handlers
-    attachQuantitativeButtonHandlers(lpipsViz, dreamsimViz, fidViz);
+    attachQuantitativeButtonHandlers();
+    
+    // Initialize section toggle functionality
+    initializeSectionToggles();
 }
 
-function attachQuantitativeButtonHandlers(lpipsViz, dreamsimViz, fidViz) {
-    // Store visualization instances globally so they can be accessed by all buttons
-    window.visualizations = { lpipsViz, dreamsimViz, fidViz };
-    
-    // Scene type buttons (affect all three visualizations)
-    $('#btn-same').click(function() {
-        toggleGlobalVisualizationLine($(this), 'familiar');
+function attachQuantitativeButtonHandlers() {
+    // Scene type buttons (affect all visualizations)
+    $('#btn-same-time').click(function() {
+        toggleGlobalVisualizationLine($(this), 'familiar', 'time');
     });
     
-    $('#btn-half').click(function() {
-        toggleGlobalVisualizationLine($(this), 'half-familiar');
+    $('#btn-half-time').click(function() {
+        toggleGlobalVisualizationLine($(this), 'half-familiar', 'time');
     });
     
-    $('#btn-unknown').click(function() {
-        toggleGlobalVisualizationLine($(this), 'unfamiliar');
+    $('#btn-unknown-time').click(function() {
+        toggleGlobalVisualizationLine($(this), 'unfamiliar', 'time');
     });
     
-    // Training status buttons (affect all three visualizations)
-    $('#btn-before').click(function() {
-        toggleGlobalTrainingStatus($(this), 'before');
+    // Training status buttons (affect all visualizations)
+    $('#btn-before-time').click(function() {
+        toggleGlobalTrainingStatus($(this), 'before', 'time');
+    });
+
+    $('#btn-after-time').click(function() {
+        toggleGlobalTrainingStatus($(this), 'after', 'time');
+    });
+
+    
+    $('#btn-same-rollout-1fps').click(function() {
+        toggleGlobalVisualizationLine($(this), 'familiar', 'rollout_1fps');
+    });
+
+    $('#btn-half-rollout-1fps').click(function() {
+        toggleGlobalVisualizationLine($(this), 'half-familiar', 'rollout_1fps');
     });
     
-    $('#btn-after').click(function() {
-        toggleGlobalTrainingStatus($(this), 'after');
+    $('#btn-unknown-rollout-1fps').click(function() {
+        toggleGlobalVisualizationLine($(this), 'unfamiliar', 'rollout_1fps');
+    });
+    
+    // Training status buttons (affect all visualizations)
+    $('#btn-before-rollout-1fps').click(function() {
+        toggleGlobalTrainingStatus($(this), 'before', 'rollout_1fps');
+    });
+
+    $('#btn-after-rollout-1fps').click(function() {
+        toggleGlobalTrainingStatus($(this), 'after', 'rollout_1fps');
+    });
+
+    $('#btn-same-rollout-4fps').click(function() {
+        toggleGlobalVisualizationLine($(this), 'familiar', 'rollout_4fps');
+    });
+
+    $('#btn-half-rollout-4fps').click(function() {
+        toggleGlobalVisualizationLine($(this), 'half-familiar', 'rollout_4fps');
+    });
+    
+    $('#btn-unknown-rollout-4fps').click(function() {
+        toggleGlobalVisualizationLine($(this), 'unfamiliar', 'rollout_4fps');
+    });
+    
+    // Training status buttons (affect all visualizations)
+    $('#btn-before-rollout-4fps').click(function() {
+        toggleGlobalTrainingStatus($(this), 'before', 'rollout_4fps');
+    });
+
+    $('#btn-after-rollout-4fps').click(function() {
+        toggleGlobalTrainingStatus($(this), 'after', 'rollout_4fps');
     });
 }
 
-function toggleGlobalVisualizationLine(button, sceneType) {
+function toggleGlobalVisualizationLine(button, sceneType, category) {
     // Toggle button visual state
     var isActive = button.attr('data-active') === 'true';
     
@@ -116,16 +185,27 @@ function toggleGlobalVisualizationLine(button, sceneType) {
         // Button will automatically restore its original color via CSS
     }
     
-    // Apply to all three visualizations
+    // Apply to all visualizations across all categories
     const visible = !isActive;
     if (window.visualizations) {
-        window.visualizations.lpipsViz.toggleLine(sceneType, visible);
-        window.visualizations.dreamsimViz.toggleLine(sceneType, visible);
-        window.visualizations.fidViz.toggleLine(sceneType, visible);
+        // Object.keys(window.visualizations).forEach(category => {
+        //     const categoryViz = window.visualizations[category];
+        //     if (categoryViz) {
+        //         categoryViz.lpipsViz.toggleLine(sceneType, visible);
+        //         categoryViz.dreamsimViz.toggleLine(sceneType, visible);
+        //         categoryViz.fidViz.toggleLine(sceneType, visible);
+        //     }
+        // });
+        const categoryViz = window.visualizations[category];
+        if (categoryViz) {
+            categoryViz.lpipsViz.toggleLine(sceneType, visible);
+            categoryViz.dreamsimViz.toggleLine(sceneType, visible);
+            categoryViz.fidViz.toggleLine(sceneType, visible);
+        }
     }
 }
 
-function toggleGlobalTrainingStatus(button, status) {
+function toggleGlobalTrainingStatus(button, status, category) {
     // Toggle button visual state
     var isActive = button.attr('data-active') === 'true';
     
@@ -137,13 +217,77 @@ function toggleGlobalTrainingStatus(button, status) {
         // Button will automatically restore its original color via CSS
     }
     
-    // Apply to all three visualizations
+    // Apply to all visualizations across all categories
     const visible = !isActive;
     if (window.visualizations) {
-        window.visualizations.lpipsViz.toggleTrainingStatus(status, visible);
-        window.visualizations.dreamsimViz.toggleTrainingStatus(status, visible);
-        window.visualizations.fidViz.toggleTrainingStatus(status, visible);
+        // Object.keys(window.visualizations).forEach(category => {
+        //     const categoryViz = window.visualizations[category];
+        //     if (categoryViz) {
+        //         categoryViz.lpipsViz.toggleTrainingStatus(status, visible);
+        //         categoryViz.dreamsimViz.toggleTrainingStatus(status, visible);
+        //         categoryViz.fidViz.toggleTrainingStatus(status, visible);
+        //     }
+        // });
+        const categoryViz = window.visualizations[category];
+        if (categoryViz) {
+            categoryViz.lpipsViz.toggleTrainingStatus(status, visible);
+            categoryViz.dreamsimViz.toggleTrainingStatus(status, visible);
+            categoryViz.fidViz.toggleTrainingStatus(status, visible);
+        }
     }
+}
+
+function initializeSectionToggles() {
+    // Time section toggle
+    $('#toggle-time-section').click(function() {
+        const content = $('#time-evaluation-container');
+        const button = $(this);
+        const icon = button.find('svg');
+        
+        if (content.is(':visible')) {
+            content.slideUp(300);
+            // Change icon to right arrow (collapsed)
+            icon.html('<path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>');
+        } else {
+            content.slideDown(300);
+            // Change icon to down arrow (expanded)
+            icon.html('<path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>');
+        }
+    });
+    
+    // 1FPS section toggle
+    $('#toggle-rollout-1fps-section').click(function() {
+        const content = $('#rollout-1fps-evaluation-container');
+        const button = $(this);
+        const icon = button.find('svg');
+        
+        if (content.is(':visible')) {
+            content.slideUp(300);
+            // Change icon to right arrow (collapsed)
+            icon.html('<path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>');
+        } else {
+            content.slideDown(300);
+            // Change icon to down arrow (expanded)
+            icon.html('<path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>');
+        }
+    });
+    
+    // 4FPS section toggle
+    $('#toggle-rollout-4fps-section').click(function() {
+        const content = $('#rollout-4fps-evaluation-container');
+        const button = $(this);
+        const icon = button.find('svg');
+        
+        if (content.is(':visible')) {
+            content.slideUp(300);
+            // Change icon to right arrow (collapsed)
+            icon.html('<path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>');
+        } else {
+            content.slideDown(300);
+            // Change icon to down arrow (expanded)
+            icon.html('<path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>');
+        }
+    });
 }
 
 // Keep the old function for backward compatibility but rename it
@@ -160,16 +304,23 @@ function toggleVisualizationLine(button, visualization, dataType) {
 }
 
 function initializeQuantiResultsTable() {
-    const table = document.getElementById('quanti-results-table');
-    if (!table) return;
+    const tabletime = document.getElementById('quanti-results-table-time');
+    const table1fps = document.getElementById('quanti-results-table-rollout_1fps');
+    const table4fps = document.getElementById('quanti-results-table-rollout_4fps');
+    if (!tabletime || !table1fps || !table4fps) return;
     
     // Add hover effects and styling
-    table.classList.add('is-hoverable');
+    tabletime.classList.add('is-hoverable');
+    table1fps.classList.add('is-hoverable');
+    table4fps.classList.add('is-hoverable');
 }
 
-function populateQuantiResultsTable(quantiData) {
-    const table = document.getElementById('quanti-results-table');
+function populateQuantiResultsTable(D, category) {
+    const quantiData = D;//#[category];
+    const table = document.getElementById('quanti-results-table-' + category);
     if (!table || !quantiData) return;
+    console.log("populateQ")
+    console.log(D)
     
     // Clear existing content
     table.innerHTML = '';
@@ -319,8 +470,8 @@ function populateQuantiResultsTable(quantiData) {
                 const beforeData = quantiData[beforeFilename];
                 const afterData = quantiData[afterFilename];
                 
-                const beforeKey = `sekai_time_${metric.key}_${timePoint}`;
-                const afterKey = `sekai_time_${metric.key}_${timePoint}`;
+                const beforeKey = `sekai_${category}_${metric.key}_${timePoint}`;
+                const afterKey = `sekai_${category}_${metric.key}_${timePoint}`;
                 
                 const beforeValue = beforeData ? beforeData[beforeKey] : null;
                 const afterValue = afterData ? afterData[afterKey] : null;

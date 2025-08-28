@@ -206,57 +206,61 @@ class DataLoader {
         return data[key] || null;
     }
 
-    getQuantiVisualizationData(metric, category = 'time') {
+    getQuantiVisualizationData(metric) {
         if (!this.quantiData) return null;
+        let result_full = {};
+        let categories = ['time', 'rollout_1fps', 'rollout_4fps'];
+        for (let i = 0; i < 3; i++) {
+            const timePoints = ['1s', '2s', '4s', '6s', '8s'];
+            let category = categories[i];
+            let result = {
+                same: { before: [], after: [] },
+                half: { before: [], after: [] },
+                unknown: { before: [], after: [] }
+            };
         
-        const timePoints = ['1s', '2s', '4s', '6s', '8s'];
-        const result = {
-            same: { before: [], after: [] },
-            half: { before: [], after: [] },
-            unknown: { before: [], after: [] }
-        };
-        
-        // Extract data for each scene type and training status
-        timePoints.forEach(time => {
-            // Same (familiar) scenes
-            const sameBefore = this.extractQuantiMetric(
-                this.quantiData['sekaibt_same_merged.json'] || {}, 
-                category, metric, time
-            );
-            const sameAfter = this.extractQuantiMetric(
-                this.quantiData['sekaift_same_merged.json'] || {}, 
-                category, metric, time
-            );
-            
-            // Half-familiar scenes
-            const halfBefore = this.extractQuantiMetric(
-                this.quantiData['sekaibt_half_merged.json'] || {}, 
-                category, metric, time
-            );
-            const halfAfter = this.extractQuantiMetric(
-                this.quantiData['sekaift_half_merged.json'] || {}, 
-                category, metric, time
-            );
-            
-            // Unknown scenes
-            const unknownBefore = this.extractQuantiMetric(
-                this.quantiData['sekaibt_unknown_merged.json'] || {}, 
-                category, metric, time
-            );
-            const unknownAfter = this.extractQuantiMetric(
-                this.quantiData['sekaift_unknown_merged.json'] || {}, 
-                category, metric, time
-            );
-            
-            result.same.before.push(sameBefore);
-            result.same.after.push(sameAfter);
-            result.half.before.push(halfBefore);
-            result.half.after.push(halfAfter);
-            result.unknown.before.push(unknownBefore);
-            result.unknown.after.push(unknownAfter);
-        });
-        
-        return result;
+            // Extract data for each scene type and training status
+            timePoints.forEach(time => {
+                // Same (familiar) scenes
+                const sameBefore = this.extractQuantiMetric(
+                    this.quantiData['sekaibt_same_merged.json'] || {}, 
+                    category, metric, time
+                );
+                const sameAfter = this.extractQuantiMetric(
+                    this.quantiData['sekaift_same_merged.json'] || {}, 
+                    category, metric, time
+                );
+                
+                // Half-familiar scenes
+                const halfBefore = this.extractQuantiMetric(
+                    this.quantiData['sekaibt_half_merged.json'] || {}, 
+                    category, metric, time
+                );
+                const halfAfter = this.extractQuantiMetric(
+                    this.quantiData['sekaift_half_merged.json'] || {}, 
+                    category, metric, time
+                );
+                
+                // Unknown scenes
+                const unknownBefore = this.extractQuantiMetric(
+                    this.quantiData['sekaibt_unknown_merged.json'] || {}, 
+                    category, metric, time
+                );
+                const unknownAfter = this.extractQuantiMetric(
+                    this.quantiData['sekaift_unknown_merged.json'] || {}, 
+                    category, metric, time
+                );
+                
+                result.same.before.push(sameBefore);
+                result.same.after.push(sameAfter);
+                result.half.before.push(halfBefore);
+                result.half.after.push(halfAfter);
+                result.unknown.before.push(unknownBefore);
+                result.unknown.after.push(unknownAfter);
+            });
+            result_full[category] = result;
+        }
+        return result_full;
     }
 }
 

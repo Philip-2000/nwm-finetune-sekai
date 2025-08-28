@@ -703,99 +703,349 @@
 
 
 
-<!-- Quantitative Comparison section -->
+<!-- Time-based Evaluation Section -->
 <section class="hero is-small is-light">
   <div class="hero-body">
     <div class="container">
-      <h2 class="title is-3 has-text-centered">Quantitative Comparison</h2>
+      <div class="section-header" style="display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+        <h3 class="title is-2" style="margin-right: 1rem;">Time-based Evaluation</h3>
+        <button id="toggle-time-section" class="button is-small is-outlined" style="border-radius: 50%; width: 40px; height: 40px; padding: 0;">
+          <span class="icon">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+              <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+            </svg>
+          </span>
+        </button>
+      </div>
       
-      <!-- Control Panel -->
-      <div class="content">
-        <div class="field is-grouped is-grouped-centered" style="margin-bottom: 2rem;">
-          <div class="control">
-            <label class="label">Scene Types & Training Status:</label>
-            <div class="field is-grouped">
-              <div class="control">
-                <button id="btn-same" class="button custom-btn" data-active="true" style="background-color: #3498db; color: white; border-color: #2980b9;">
-                  <span class="icon"><i class="fas fa-home"></i></span>
-                  <span>Familiar</span>
-                </button>
+      <div id="time-evaluation-container">
+        <!-- Control Panel -->
+        <div class="content">
+          <div class="field is-grouped is-grouped-centered" style="margin-bottom: 2rem;">
+            <div class="control">
+              <label class="label">Scene Types & Training Status:</label>
+              <div class="field is-grouped">
+                <div class="control">
+                  <button id="btn-same-time" class="button custom-btn" data-active="true" style="background-color: #3498db; color: white; border-color: #2980b9;">
+                    <span class="icon"><i class="fas fa-home"></i></span>
+                    <span>Familiar</span>
+                  </button>
+                </div>
+                <div class="control">
+                  <button id="btn-half-time" class="button custom-btn" data-active="true" style="background-color: #f39c12; color: white; border-color: #e67e22;">
+                    <span class="icon"><i class="fas fa-adjust"></i></span>
+                    <span>Half-Familiar</span>
+                  </button>
+                </div>
+                <div class="control">
+                  <button id="btn-unknown-time" class="button custom-btn" data-active="true" style="background-color: #27ae60; color: white; border-color: #229954;">
+                    <span class="icon"><i class="fas fa-question"></i></span>
+                    <span>Unknown</span>
+                  </button>
+                </div>
+                <div class="control" style="margin-left: 1.5rem;">
+                  <button id="btn-before-time" class="button custom-btn" data-active="true" style="background-color: #e74c3c; color: white; border-color: #c0392b;">
+                    <span class="icon"><i class="fas fa-backward"></i></span>
+                    <span>Before</span>
+                  </button>
+                </div>
+                <div class="control">
+                  <button id="btn-after-time" class="button custom-btn" data-active="true" style="background-color: #34495e; color: white; border-color: #2c3e50;">
+                    <span class="icon"><i class="fas fa-forward"></i></span>
+                    <span>After</span>
+                  </button>
+                </div>
               </div>
-              <div class="control">
-                <button id="btn-half" class="button custom-btn" data-active="true" style="background-color: #f39c12; color: white; border-color: #e67e22;">
-                  <span class="icon"><i class="fas fa-adjust"></i></span>
-                  <span>Half-Familiar</span>
-                </button>
-              </div>
-              <div class="control">
-                <button id="btn-unknown" class="button custom-btn" data-active="true" style="background-color: #27ae60; color: white; border-color: #229954;">
-                  <span class="icon"><i class="fas fa-question"></i></span>
-                  <span>Unknown</span>
-                </button>
-              </div>
-              <div class="control" style="margin-left: 1.5rem;">
-                <button id="btn-before" class="button custom-btn" data-active="true" style="background-color: #e74c3c; color: white; border-color: #c0392b;">
-                  <span class="icon"><i class="fas fa-backward"></i></span>
-                  <span>Before</span>
-                </button>
-              </div>
-              <div class="control">
-                <button id="btn-after" class="button custom-btn" data-active="true" style="background-color: #34495e; color: white; border-color: #2c3e50;">
-                  <span class="icon"><i class="fas fa-forward"></i></span>
-                  <span>After</span>
-                </button>
+            </div>
+          </div>
+
+          <!-- Time-based Evaluation Section -->
+          <div class="evaluation-section" id="time-evaluation-section">
+            
+            <div class="section-content" id="time-evaluation-content">
+              <!-- Three Visualization Containers for Time-based -->
+              <div class="columns is-multiline">
+                <!-- LPIPS Visualization -->
+                <div class="column is-one-third">
+                  <h4 class="title is-5 has-text-centered">LPIPS Performance Over Time</h4>
+                  <div id="lpips-time-visualization" class="quanti-viz-container" style="width: 100%; height: 400px; border: 1px solid #ddd; margin: 10px 0; background: #fafafa;">
+                    <!-- LPIPS time visualization will be inserted here -->
+                  </div>
+                </div>
+                
+                <!-- DreamSim Visualization -->
+                <div class="column is-one-third">
+                  <h4 class="title is-5 has-text-centered">DreamSim Performance Over Time</h4>
+                  <div id="dreamsim-time-visualization" class="quanti-viz-container" style="width: 100%; height: 400px; border: 1px solid #ddd; margin: 10px 0; background: #fafafa;">
+                    <!-- DreamSim time visualization will be inserted here -->
+                  </div>
+                </div>
+                
+                <!-- FID Visualization -->
+                <div class="column is-one-third">
+                  <h4 class="title is-5 has-text-centered">FID Performance Over Time</h4>
+                  <div id="fid-time-visualization" class="quanti-viz-container" style="width: 100%; height: 400px; border: 1px solid #ddd; margin: 10px 0; background: #fafafa;">
+                    <!-- FID time visualization will be inserted here -->
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-
-        <!-- Three Visualization Containers -->
-        <div class="columns is-multiline">
-          <!-- LPIPS Visualization -->
-          <div class="column is-one-third">
-            <h3 class="title is-one-third has-text-centered">LPIPS Performance Over Time</h3>
-            <div id="lpips-visualization" class="quanti-viz-container" style="width: 100%; height: 400px; border: 1px solid #ddd; margin: 10px 0; background: #fafafa;">
-              <!-- LPIPS visualization will be inserted here -->
-            </div>
-          </div>
-          
-          <!-- DreamSim Visualization -->
-          <div class="column is-one-third">
-            <h3 class="title is-one-third has-text-centered">DreamSim Performance Over Time</h3>
-            <div id="dreamsim-visualization" class="quanti-viz-container" style="width: 100%; height: 400px; border: 1px solid #ddd; margin: 10px 0; background: #fafafa;">
-              <!-- DreamSim visualization will be inserted here -->
-            </div>
-          </div>
-          
-          <!-- FID Visualization -->
-          <div class="column is-one-third">
-            <h3 class="title is-one-third has-text-centered">FID Performance Over Time</h3>
-            <div id="fid-visualization" class="quanti-viz-container" style="width: 100%; height: 400px; border: 1px solid #ddd; margin: 10px 0; background: #fafafa;">
-              <!-- FID visualization will be inserted here -->
-            </div>
+        
+        <!-- Results Summary Table Time Rollout -->
+        <div class="content" style="margin-top: 3rem;">
+          <h3 class="title is-4 has-text-centered">Performance Summary (Time-based Evaluation)</h3>
+          <div class="table-container">
+            <table id="quanti-results-table-time" class="table is-bordered is-striped is-hoverable is-fullwidth">
+              <thead>
+                <tr>
+                  <th>Scene Type</th>
+                  <th>Training Status</th>
+                  <th>Time Point</th>
+                  <th>DreamSim ↓</th>
+                  <th>LPIPS ↓</th>
+                  <th>FID ↓</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Table content will be populated by JavaScript -->
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
-      
-      <!-- Results Summary Table -->
-      <div class="content">
-        <h3 class="title is-4">Performance Summary</h3>
-        <div class="table-container">
-          <table id="quanti-results-table" class="table is-bordered is-striped is-hoverable is-fullwidth">
-            <thead>
-              <tr>
-                <th>Scene Type</th>
-                <th>Training Status</th>
-                <th>Time Point</th>
-                <th>DreamSim ↓</th>
-                <th>LPIPS ↓</th>
-                <th>FID ↓</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- Table content will be populated by JavaScript -->
-            </tbody>
-          </table>
+    </div>
+  </div>
+</section>
+
+
+<!-- 1FPS Rollout Evaluation Section -->
+<section class="hero is-small is-light">
+  <div class="hero-body">
+    <div class="container">
+      <div class="section-header" style="display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+        <h3 class="title is-2" style="margin-right: 1rem;">1FPS Rollout Evaluation</h3>
+        <button id="toggle-rollout-1fps-section" class="button is-small is-outlined" style="border-radius: 50%; width: 40px; height: 40px; padding: 0;">
+          <span class="icon">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+              <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+            </svg>
+          </span>
+        </button>
+      </div>
+
+      <div id="rollout-1fps-evaluation-container">
+        <!-- Control Panel -->
+        <div class="content">
+          <div class="field is-grouped is-grouped-centered" style="margin-bottom: 2rem;">
+            <div class="control">
+              <label class="label">Scene Types & Training Status:</label>
+              <div class="field is-grouped">
+                <div class="control">
+                  <button id="btn-same-rollout-1fps" class="button custom-btn" data-active="true" style="background-color: #3498db; color: white; border-color: #2980b9;">
+                    <span class="icon"><i class="fas fa-home"></i></span>
+                    <span>Familiar</span>
+                  </button>
+                </div>
+                <div class="control">
+                  <button id="btn-half-rollout-1fps" class="button custom-btn" data-active="true" style="background-color: #f39c12; color: white; border-color: #e67e22;">
+                    <span class="icon"><i class="fas fa-adjust"></i></span>
+                    <span>Half-Familiar</span>
+                  </button>
+                </div>
+                <div class="control">
+                  <button id="btn-unknown-rollout-1fps" class="button custom-btn" data-active="true" style="background-color: #27ae60; color: white; border-color: #229954;">
+                    <span class="icon"><i class="fas fa-question"></i></span>
+                    <span>Unknown</span>
+                  </button>
+                </div>
+                <div class="control" style="margin-left: 1.5rem;">
+                  <button id="btn-before-rollout-1fps" class="button custom-btn" data-active="true" style="background-color: #e74c3c; color: white; border-color: #c0392b;">
+                    <span class="icon"><i class="fas fa-backward"></i></span>
+                    <span>Before</span>
+                  </button>
+                </div>
+                <div class="control">
+                  <button id="btn-after-rollout-1fps" class="button custom-btn" data-active="true" style="background-color: #34495e; color: white; border-color: #2c3e50;">
+                    <span class="icon"><i class="fas fa-forward"></i></span>
+                    <span>After</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 1FPS Rollout Evaluation Section -->
+          <div class="evaluation-section" id="rollout-1fps-evaluation-section" style="margin-top: 2rem;">
+            
+            <div class="section-content" id="rollout-1fps-evaluation-content">
+              <!-- Three Visualization Containers for 1FPS Rollout -->
+              <div class="columns is-multiline">
+                <!-- LPIPS Visualization -->
+                <div class="column is-one-third">
+                  <h4 class="title is-5 has-text-centered">LPIPS Performance Over Time (1FPS)</h4>
+                  <div id="lpips-rollout-1fps-visualization" class="quanti-viz-container" style="width: 100%; height: 400px; border: 1px solid #ddd; margin: 10px 0; background: #fafafa;">
+                    <!-- LPIPS 1fps visualization will be inserted here -->
+                  </div>
+                </div>
+                
+                <!-- DreamSim Visualization -->
+                <div class="column is-one-third">
+                  <h4 class="title is-5 has-text-centered">DreamSim Performance Over Time (1FPS)</h4>
+                  <div id="dreamsim-rollout-1fps-visualization" class="quanti-viz-container" style="width: 100%; height: 400px; border: 1px solid #ddd; margin: 10px 0; background: #fafafa;">
+                    <!-- DreamSim 1fps visualization will be inserted here -->
+                  </div>
+                </div>
+                
+                <!-- FID Visualization -->
+                <div class="column is-one-third">
+                  <h4 class="title is-5 has-text-centered">FID Performance Over Time (1FPS)</h4>
+                  <div id="fid-rollout-1fps-visualization" class="quanti-viz-container" style="width: 100%; height: 400px; border: 1px solid #ddd; margin: 10px 0; background: #fafafa;">
+                    <!-- FID 1fps visualization will be inserted here -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Results Summary Table 1FPS Rollout -->
+        <div class="content" style="margin-top: 3rem;">
+          <h3 class="title is-4 has-text-centered">Performance Summary (1FPS-based Evaluation)</h3>
+          <div class="table-container">
+            <table id="quanti-results-table-rollout_1fps" class="table is-bordered is-striped is-hoverable is-fullwidth">
+              <thead>
+                <tr>
+                  <th>Scene Type</th>
+                  <th>Training Status</th>
+                  <th>Time Point</th>
+                  <th>DreamSim ↓</th>
+                  <th>LPIPS ↓</th>
+                  <th>FID ↓</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Table content will be populated by JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4FPS Rollout Evaluation Section -->
+<section class="hero is-small is-light">
+  <div class="hero-body">
+    <div class="container">
+      <div class="section-header" style="display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+        <h3 class="title is-2" style="margin-right: 1rem;">4FPS Rollout Evaluation</h3>
+        <button id="toggle-rollout-4fps-section" class="button is-small is-outlined" style="border-radius: 50%; width: 40px; height: 40px; padding: 0;">
+          <span class="icon">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+              <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+            </svg>
+          </span>
+        </button>
+      </div>
+
+      <div id="rollout-4fps-evaluation-container">
+        <!-- Control Panel -->
+        <div class="content">
+          <div class="field is-grouped is-grouped-centered" style="margin-bottom: 2rem;">
+            <div class="control">
+              <label class="label">Scene Types & Training Status:</label>
+              <div class="field is-grouped">
+                <div class="control">
+                  <button id="btn-same-rollout-4fps" class="button custom-btn" data-active="true" style="background-color: #3498db; color: white; border-color: #2980b9;">
+                    <span class="icon"><i class="fas fa-home"></i></span>
+                    <span>Familiar</span>
+                  </button>
+                </div>
+                <div class="control">
+                  <button id="btn-half-rollout-4fps" class="button custom-btn" data-active="true" style="background-color: #f39c12; color: white; border-color: #e67e22;">
+                    <span class="icon"><i class="fas fa-adjust"></i></span>
+                    <span>Half-Familiar</span>
+                  </button>
+                </div>
+                <div class="control">
+                  <button id="btn-unknown-rollout-4fps" class="button custom-btn" data-active="true" style="background-color: #27ae60; color: white; border-color: #229954;">
+                    <span class="icon"><i class="fas fa-question"></i></span>
+                    <span>Unknown</span>
+                  </button>
+                </div>
+                <div class="control" style="margin-left: 1.5rem;">
+                  <button id="btn-before-rollout-4fps" class="button custom-btn" data-active="true" style="background-color: #e74c3c; color: white; border-color: #c0392b;">
+                    <span class="icon"><i class="fas fa-backward"></i></span>
+                    <span>Before</span>
+                  </button>
+                </div>
+                <div class="control">
+                  <button id="btn-after-rollout-4fps" class="button custom-btn" data-active="true" style="background-color: #34495e; color: white; border-color: #2c3e50;">
+                    <span class="icon"><i class="fas fa-forward"></i></span>
+                    <span>After</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4FPS Rollout Evaluation Section -->
+          <div class="evaluation-section" id="rollout-4fps-evaluation-section" style="margin-top: 2rem;">
+            
+            <div class="section-content" id="rollout-4fps-evaluation-content">
+              <!-- Three Visualization Containers for 4FPS Rollout -->
+              <div class="columns is-multiline">
+                <!-- LPIPS Visualization -->
+                <div class="column is-one-third">
+                  <h4 class="title is-5 has-text-centered">LPIPS Performance Over Time (4FPS)</h4>
+                  <div id="lpips-rollout-4fps-visualization" class="quanti-viz-container" style="width: 100%; height: 400px; border: 1px solid #ddd; margin: 10px 0; background: #fafafa;">
+                    <!-- LPIPS 4fps visualization will be inserted here -->
+                  </div>
+                </div>
+                
+                <!-- DreamSim Visualization -->
+                <div class="column is-one-third">
+                  <h4 class="title is-5 has-text-centered">DreamSim Performance Over Time (4FPS)</h4>
+                  <div id="dreamsim-rollout-4fps-visualization" class="quanti-viz-container" style="width: 100%; height: 400px; border: 1px solid #ddd; margin: 10px 0; background: #fafafa;">
+                    <!-- DreamSim 4fps visualization will be inserted here -->
+                  </div>
+                </div>
+                
+                <!-- FID Visualization -->
+                <div class="column is-one-third">
+                  <h4 class="title is-5 has-text-centered">FID Performance Over Time (4FPS)</h4>
+                  <div id="fid-rollout-4fps-visualization" class="quanti-viz-container" style="width: 100%; height: 400px; border: 1px solid #ddd; margin: 10px 0; background: #fafafa;">
+                    <!-- FID 4fps visualization will be inserted here -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Results Summary Table 4FPS Rollout -->
+        <div class="content" style="margin-top: 3rem;">
+          <h3 class="title is-4 has-text-centered">Performance Summary (4FPS-based Evaluation)</h3>
+          <div class="table-container">
+            <table id="quanti-results-table-rollout_4fps" class="table is-bordered is-striped is-hoverable is-fullwidth">
+              <thead>
+                <tr>
+                  <th>Scene Type</th>
+                  <th>Training Status</th>
+                  <th>Time Point</th>
+                  <th>DreamSim ↓</th>
+                  <th>LPIPS ↓</th>
+                  <th>FID ↓</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Table content will be populated by JavaScript -->
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

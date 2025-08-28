@@ -397,5 +397,64 @@ body {
     }
 }
 
+/* Evaluation section styles */
+.evaluation-section {
+    margin-bottom: 2rem;
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    padding: 1rem;
+    background-color: #fafafa;
+}
+
+.evaluation-section .section-header {
+    transition: all 0.3s ease;
+}
+
+.evaluation-section .section-header:hover {
+    background-color: #f0f0f0;
+    border-radius: 6px;
+    padding: 0.5rem;
+}
+
+.evaluation-section .section-header button {
+    transition: all 0.3s ease;
+}
+
+.evaluation-section .section-header button:hover {
+    background-color: #e8e8e8;
+    transform: rotate(180deg);
+}
+
+.evaluation-section .section-content {
+    transition: all 0.3s ease;
+}
+
+/* Visualization container specific styles for different categories */
+.evaluation-section h4 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.evaluation-section .quanti-viz-container {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-radius: 4px;
+}
+
+/* Different background colors for different evaluation types */
+#time-evaluation-section {
+    background-color: #f8f9ff;
+    border-color: #d0d7ff;
+}
+
+#rollout-1fps-evaluation-section {
+    background-color: #fff8f0;
+    border-color: #ffd9b3;
+}
+
+#rollout-4fps-evaluation-section {
+    background-color: #f0fff8;
+    border-color: #b3ffd9;
+}
+
 
 
