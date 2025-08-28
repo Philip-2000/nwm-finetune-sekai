@@ -155,18 +155,18 @@ class QuantiVisualization {
 
     loadAndRender() {
         // Wait for data to be loaded
-        while(!(window.dataLoader && window.dataLoader.getQuantiData())) {
+        // while(!(window.dataLoader && window.dataLoader.getQuantiData())) {
             // Wait until dataLoader is available
-        }
-        this.renderVisualization();
-        // if (window.dataLoader && window.dataLoader.getQuantiData()) {
-        //     this.renderVisualization();
-        // } else {
-        //     // Listen for data loaded event
-        //     document.addEventListener('quantiDataLoaded', () => {
-        //         this.renderVisualization();
-        //     });
         // }
+        // this.renderVisualization();
+        if (window.dataLoader && window.dataLoader.getQuantiData()) {
+            this.renderVisualization();
+        } else {
+            // Listen for data loaded event
+            document.addEventListener('quantiDataLoaded', () => {
+                this.renderVisualization();
+            });
+        }
     }
 
     renderVisualization() {

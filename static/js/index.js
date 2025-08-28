@@ -5,24 +5,29 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('NWM Fine-tuning project page loaded');
     // Initialize three separate quantitative visualizations
     initializeQuantitativeComparison();
-    
-    // Listen for quanti data loaded event
-    // document.addEventListener('quantiDataLoaded', function(event) {
-    //     populateQuantiResultsTable(event.detail);
-    // });
-    
-    // If quanti data is already loaded
-    while(!(window.dataLoader && window.dataLoader.getQuantiData())) {
-        // Wait until dataLoader is available
-    }
-    // Initialize results table
     initializeQuantiResultsTable();
     
-    const D = window.dataLoader.getQuantiData();
-    populateQuantiResultsTable(D, "time");
-    populateQuantiResultsTable(D, "rollout_1fps");
-    populateQuantiResultsTable(D, "rollout_4fps");
+    // Listen for quanti data loaded event
+    document.addEventListener('quantiDataLoaded', function(event) {
+        const D = window.dataLoader.getQuantiData();
+        populateQuantiResultsTable(D, "time");
+        populateQuantiResultsTable(D, "rollout_1fps");
+        populateQuantiResultsTable(D, "rollout_4fps");
+    });
     
+    // If quanti data is already loaded
+    // while(!(window.dataLoader && window.dataLoader.getQuantiData())) {
+        // Wait until dataLoader is available
+    // }
+    // Initialize results table
+
+    if (window.dataLoader && window.dataLoader.getQuantiData()) {
+        const D = window.dataLoader.getQuantiData();
+        populateQuantiResultsTable(D, "time");
+        populateQuantiResultsTable(D, "rollout_1fps");
+        populateQuantiResultsTable(D, "rollout_4fps");
+    }
+
 
     // Initialize original carousel and slider functionality
     initializeCarouselAndSlider();
